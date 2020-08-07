@@ -1,7 +1,7 @@
 from luckydonaldUtils.logger import logging
 logging.add_colored_handler(level=logging.DEBUG)
 
-from r2tg.secrets import SENTRY_DSN
+from sticker_name.secrets import SENTRY_DSN
 
 if SENTRY_DSN:
     import sentry_sdk
