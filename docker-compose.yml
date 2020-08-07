@@ -6,3 +6,4 @@ services:
     environment:
       TG_API_KEY:  # API key of the bot
       SENTRY_DSN: # https://...
+      GETSTICKERS_API_KEY: # API key of getstickers.me. Ask t.me/luckydonald to get one.
