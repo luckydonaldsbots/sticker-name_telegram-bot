@@ -1,0 +1,44 @@
+version: "2.1"
+services:
+  db:
+    build: ./postgres
+    restart: "unless-stopped"
+  bot:
+    build: .
+    restart: "unless-stopped"
+    environment:
+      TG_API_KEY:  # API key of the bot
+      TG_FEED_CHANNEL_ID: # -10012345...
+      REDDIT_APP_PLATFORM:
+      REDDIT_APP_ID:
+      REDDIT_APP_CREATOR_USERNAME:
+      REDDIT_APP_CLIENT_ID:
+      REDDIT_APP_CLIENT_SECRET:
+      REDDIT_ACCOUNT_NAME:
+      REDDIT_ACCOUNT_PASSWORD:
+      IMGUR_CLIENT_ID:
+      IMGUR_CLIENT_SECRET:
+      RABBITMQ_HOST: # "rabbit"
+      RABBITMQ_USER: # "rabbit"
+      RABBITMQ_PASS: # "1234secure"
+      RABBITMQ_VHOST: # app02
+      SENTRY_DSN: # https://...
+
+
+  worker:
+    build:
+      context: ./
+      args:
+        FOLDER: ""
+    working_dir: /app/
+    restart: "unless-stopped"
+    environment:
+      IS_WORKER: "yes"
+      TG_API_KEY:  # API key of the bot
+      TG_FEED_CHANNEL_ID: # -10012345...
+      RABBITMQ_HOST: # "rabbit"
+      RABBITMQ_USER: # "rabbit"
+      RABBITMQ_PASS: # "1234secure"
+      RABBITMQ_VHOST: # app02
+      SENTRY_DSN: # https://...
+    command: "python main_worker.py"  # --autoscale=4,2
