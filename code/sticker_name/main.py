@@ -24,9 +24,8 @@ def got_sticker(update: Update, msg: Message):
 # end def
 
 
-@bot.on_message('start')
-@bot.on_message('help')
-def got_sticker(update: Update, msg: Message):
-    pack: StickerSet = bot.bot.get_sticker_set(msg.sticker.set_name)
+@bot.on_command('start')
+@bot.on_command('help')
+def got_sticker(update: Update, text: str):
     return f"Thanks for using @{bot.username}.\nSimply add this to any chat you like, it will reply to a sent sticker with the title of the pack and a link.\n\nPart of the @luckydonaldsbots network."
 # end def
