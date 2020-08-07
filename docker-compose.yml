@@ -1,8 +1,5 @@
 version: "2.1"
 services:
-  db:
-    build: ./postgres
-    restart: "unless-stopped"
   bot:
     build: .
     restart: "unless-stopped"
