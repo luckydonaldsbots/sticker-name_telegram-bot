@@ -58,6 +58,7 @@ def got_sticker(update: Update, msg: Message):
                     "pack": pack.name,
                     # "sticker": msg.sticker.file_unique_id,
                 },
+                timeout=2.0,
             ).json()
             is_nsfw = data['data']['pack']['pack']['nsfw']
         except:
