@@ -62,7 +62,7 @@ def process_create_channel_done(update: Update):
     :return:
     """
     new_data = update.callback_query.data
-    original_poster = update.callback_query.message.from_peer
+    original_poster = update.callback_query.message.reply_to_message.from_peer
     allowed = True
     if update.callback_query.from_peer.id != original_poster.id:
         allowed = False
