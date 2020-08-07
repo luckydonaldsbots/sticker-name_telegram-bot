@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 from flask import Flask
 from teleflask import Teleflask
-from luckydonaldUtils.tg_bots.gitinfo import version_bp
+from luckydonaldUtils.tg_bots.gitinfo import version_bp, version_tbp
 from pytgbot.api_types.receivable.updates import Update, Message
 from pytgbot.api_types.receivable.stickers import StickerSet
 
@@ -14,7 +14,7 @@ __author__ = 'luckydonald'
 app = Flask(__name__)
 app.register_blueprint(version_bp)
 bot = Teleflask(TG_API_KEY, app)
-bot.register_tblueprint(version_bp)
+bot.register_tblueprint(version_tbp)
 
 
 @bot.on_message('sticker')
