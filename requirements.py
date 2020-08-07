@@ -3,4 +3,5 @@ requirements = [
     "luckydonald-utils",
     "pytgbot",
     "teleflask",
+    "requests",
 ]

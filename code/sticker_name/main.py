@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+import requests
+
 from html import escape
 from flask import Flask
 from teleflask import Teleflask
@@ -12,7 +14,7 @@ from pytgbot.api_types.receivable.updates import Update, Message
 from pytgbot.api_types.receivable.stickers import StickerSet
 from pytgbot.api_types.sendable.reply_markup import InlineKeyboardMarkup, InlineKeyboardButton
 
-from .secrets import TG_API_KEY
+from .secrets import TG_API_KEY, GETSTICKERS_API_KEY
 
 __author__ = 'luckydonald'
 logger = logging.getLogger(__name__)
@@ -44,13 +46,38 @@ LABEL_TO_TEXT_MAPPING = {
 @bot.on_message('sticker')
 def got_sticker(update: Update, msg: Message):
     pack: StickerSet = bot.bot.get_sticker_set(msg.sticker.set_name)
-    return PlainMessage(
-        text=f"t.me/addstickers/{escape(pack.name)}\n{escape(pack.title)}",
-        reply_markup=InlineKeyboardMarkup([
-            [InlineKeyboardButton(LABEL_SFW, callback_data=CALLBACK_DATA_RATING_SFW)],
-            [InlineKeyboardButton(LABEL_NSFW, callback_data=CALLBACK_DATA_RATING_NSFW)]
-        ]),
-    )
+    text = f"t.me/addstickers/{escape(pack.name)}\n{escape(pack.title)}"
+    is_nsfw = False
+
+    if GETSTICKERS_API_KEY:
+        try:
+            data = requests.get(
+                'https://getstickers.me/api/v2/nsfw',
+                params={
+                    "key": GETSTICKERS_API_KEY,
+                    "pack": pack.name,
+                    # "sticker": msg.sticker.file_unique_id,
+                },
+            ).json()
+            is_nsfw = data['data']['pack']['pack']['nsfw']
+        except:
+            logger.warning('NSFW check via API failed.')
+        # end try
+    # end if
+
+    if is_nsfw:
+        return PlainMessage(
+            text=text + "\n" + REPLACEMENT_TEXT_NSFW
+        )
+    else:
+        return PlainMessage(
+            text=text,
+            reply_markup=InlineKeyboardMarkup([
+                [InlineKeyboardButton(LABEL_SFW, callback_data=CALLBACK_DATA_RATING_SFW)],
+                [InlineKeyboardButton(LABEL_NSFW, callback_data=CALLBACK_DATA_RATING_NSFW)]
+            ]),
+        )
+    # end if
 # end def
 
 

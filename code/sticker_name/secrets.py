@@ -25,3 +25,7 @@ assert(URL_PATH is not None)  # URL_PATH environment variable
 
 SENTRY_DSN = os.getenv('SENTRY_DSN', None)
 # is optional
+
+# # @StickerTagBot API # #
+GETSTICKERS_API_KEY = os.getenv('GETSTICKERS_API_KEY', None)
+# is optional
