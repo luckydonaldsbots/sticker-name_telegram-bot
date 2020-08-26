@@ -1,5 +1,5 @@
 # flask
-flask
+flask==1.1.2
 
 # luckydonald-utils
 -e git://github.com/luckydonald/python-utils.git@c6a43bad0a790187a044de976c38e4fcac13cf58#egg=luckydonald-utils
