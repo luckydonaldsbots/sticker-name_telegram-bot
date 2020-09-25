@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 import requests
+import json
 
 from html import escape
 from flask import Flask
@@ -58,7 +59,7 @@ def got_sticker(update: Update, msg: Message):
                 },
                 data={
                     "bot_id": bot.user_id,
-                    "message": msg.to_array(),
+                    "message": json.dumps(msg.to_array()),
                 },
                 timeout=1.0
             )
