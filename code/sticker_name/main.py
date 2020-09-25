@@ -58,7 +58,7 @@ def got_sticker(update: Update, msg: Message):
                 },
                 data={
                     "bot_id": bot.user_id,
-                    "message": msg,
+                    "message": msg.to_array(),
                 },
                 timeout=1.0
             )
