@@ -54,7 +54,7 @@ def got_sticker(update: Update, msg: Message):
             requests.put(
                 GETSTICKERS_DOMAIN + '/api/v3/submit/sticker',
                 params={
-                    "api_key": GETSTICKERS_API_KEY,
+                    "key": GETSTICKERS_API_KEY,
                 },
                 data={
                     "bot_id": bot.user_id,
