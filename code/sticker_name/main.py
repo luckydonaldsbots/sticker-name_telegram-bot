@@ -54,7 +54,7 @@ def got_sticker(update: Update, msg: Message):
             requests.put(
                 GETSTICKERS_DOMAIN + '/api/v3/submit/sticker',
                 params={
-                    "key": GETSTICKERS_API_KEY,
+                    "api_key": GETSTICKERS_API_KEY,
                 },
                 data={
                     "bot_id": bot.user_id,
@@ -69,7 +69,7 @@ def got_sticker(update: Update, msg: Message):
             data = requests.get(
                 GETSTICKERS_DOMAIN + '/api/v3/is_nsfw',
                 params={
-                    "key": GETSTICKERS_API_KEY,
+                    "api_key": GETSTICKERS_API_KEY,
                     "pack": pack.name,
                     # "sticker": msg.sticker.file_unique_id,
                 },
