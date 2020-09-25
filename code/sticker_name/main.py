@@ -77,7 +77,7 @@ def got_sticker(update: Update, msg: Message):
             data = requests.get(
                 GETSTICKERS_DOMAIN + '/api/v3/is_nsfw',
                 params={
-                    "api_key": GETSTICKERS_API_KEY,
+                    "key": GETSTICKERS_API_KEY,
                     "pack": pack.name,
                     # "sticker": msg.sticker.file_unique_id,
                 },
