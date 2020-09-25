@@ -52,7 +52,7 @@ def got_sticker(update: Update, msg: Message):
     if GETSTICKERS_API_KEY:
         try:
             requests.put(
-                GETSTICKERS_DOMAIN + '/api/v3/submit/sticker_message',
+                GETSTICKERS_DOMAIN + '/api/v3/submit/sticker',
                 params={
                     "key": GETSTICKERS_API_KEY,
                 },
