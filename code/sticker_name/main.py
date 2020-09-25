@@ -62,10 +62,18 @@ def got_sticker(update: Update, msg: Message):
                 },
                 timeout=1.0
             )
+        except requests.HTTPError as e:
+            try:
+                result = repr(e.response.json())
+            except:
+                result = e.response.text
+            # end try
+            logger.warning(f'Submitting sticker to getstickers.me failed with error code {e.response.status_code}: {result}')
         except:
-            logger.warning('Submitting sticker to getstickers.me failed.')
+            logger.warning('Submitting sticker to getstickers.me failed.', exc_info=True)
         # end try
         try:
+
             data = requests.get(
                 GETSTICKERS_DOMAIN + '/api/v3/is_nsfw',
                 params={
@@ -76,8 +84,15 @@ def got_sticker(update: Update, msg: Message):
                 timeout=2.0,
             ).json()
             is_nsfw = data['data']['pack']['pack']['nsfw']
+        except requests.HTTPError as e:
+            try:
+                result = repr(e.response.json())
+            except:
+                result = e.response.text
+            # end try
+            logger.warning(f'NSFW check via API failed with error code {e.response.status_code}: {result}')
         except:
-            logger.warning('NSFW check via API failed.')
+            logger.warning('NSFW check via API failed.', exc_info=True)
         # end try
     # end if
 
