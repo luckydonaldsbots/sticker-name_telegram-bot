@@ -14,7 +14,7 @@ from pytgbot.api_types.receivable.updates import Update, Message
 from pytgbot.api_types.receivable.stickers import StickerSet
 from pytgbot.api_types.sendable.reply_markup import InlineKeyboardMarkup, InlineKeyboardButton
 
-from .secrets import TG_API_KEY, GETSTICKERS_API_KEY
+from .secrets import TG_API_KEY, GETSTICKERS_API_KEY, GETSTICKERS_DOMAIN
 
 __author__ = 'luckydonald'
 logger = logging.getLogger(__name__)
@@ -51,8 +51,23 @@ def got_sticker(update: Update, msg: Message):
 
     if GETSTICKERS_API_KEY:
         try:
+            requests.put(
+                GETSTICKERS_DOMAIN + '/api/v3/submit/sticker_message',
+                params={
+                    "key": GETSTICKERS_API_KEY,
+                },
+                data={
+                    "bot_id": bot.user_id,
+                    "message": msg,
+                },
+                timeout=1.0
+            )
+        except:
+            logger.warning('Submitting sticker to getstickers.me failed.')
+        # end try
+        try:
             data = requests.get(
-                'https://getstickers.me/api/v2/nsfw',
+                GETSTICKERS_DOMAIN + '/api/v3/is_nsfw',
                 params={
                     "key": GETSTICKERS_API_KEY,
                     "pack": pack.name,

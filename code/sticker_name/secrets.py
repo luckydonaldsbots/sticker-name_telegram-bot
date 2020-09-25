@@ -29,3 +29,6 @@ SENTRY_DSN = os.getenv('SENTRY_DSN', None)
 # # @StickerTagBot API # #
 GETSTICKERS_API_KEY = os.getenv('GETSTICKERS_API_KEY', None)
 # is optional
+
+GETSTICKERS_DOMAIN = os.getenv('GETSTICKERS_DOMAIN', 'https://getstickers.me')   # so we can switch to staging there.
+# is optional
